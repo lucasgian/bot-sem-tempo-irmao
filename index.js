@@ -4,8 +4,8 @@ const pingmydyno = require('pingmydyno');
 require('dotenv').config();
 
 const bot = new SlackBot({
-    token: `${process.env.BOT_TOKEN}`,
-    name: 'inspirenuggets'
+    token: 'xoxb-805418037462-804742825073-3puEcrlVovYX3z3O6kmDiW6P',
+    name: 'Sem tempo irmão'
 })
 
 // Start Handler
@@ -16,7 +16,7 @@ bot.on('start', () => {
 
     bot.postMessageToChannel(
         'random',
-        'Get inspired while working with @inspirenuggets',
+        'Tá na hora do KO @semtempoirmao',
         params
     );
 })
@@ -36,7 +36,7 @@ bot.on('message', (data) => {
 
 // Response Handler
 function handleMessage(message) {
-    if(message.includes(' inspire me')) {
+    if(message.includes(' ko')) {
         inspireMe()
     } else if(message.includes(' random joke')) {
         randomJoke()
@@ -47,20 +47,19 @@ function handleMessage(message) {
 
 // inspire Me
 function inspireMe() {
-    axios.get('https://raw.githubusercontent.com/BolajiAyodeji/inspireNuggets/master/src/quotes.json')
-      .then(res => {
-            const quotes = res.data;
-            const random = Math.floor(Math.random() * quotes.length);
-            const quote = quotes[random].quote
-            const author = quotes[random].author
-
+    //axios.get('https://raw.githubusercontent.com/BolajiAyodeji/semtempoirmao/master/src/quotes.json')
+    axios.get('https://node-gif.herokuapp.com/v1/bots/phrases/feeds')
+        .then(res => {
+            const quote = res.data.content;
+            const author = res.data.author || 'Bruno';
             const params = {
-                icon_emoji: ':male-technologist:'
+                //icon_emoji: ':male-technologist:'
+                icon_emoji: ':meow_party:'
             }
         
             bot.postMessageToChannel(
                 'random',
-                `:zap: ${quote} - *${author}*`,
+                `:meow_party: ${quote} - *${author}*`,
                 params
             );
 
@@ -94,7 +93,7 @@ function runHelp() {
 
     bot.postMessageToChannel(
         'random',
-        `Type *@inspirenuggets* with *inspire me* to get an inspiring techie quote, *random joke* to get a Chuck Norris random joke and *help* to get this instruction again`,
+        `Type *@semtempoirmao* with *inspire me* to get an inspiring techie quote, *random joke* to get a Chuck Norris random joke and *help* to get this instruction again`,
         params
     );
 }
@@ -118,6 +117,6 @@ http.createServer(function (req, res) {
                 return res.end();
         });
     } 
-}).listen(`${process.env.PORT}`, () => {
+}).listen('3000', () => {
     pingmydyno('https://myapp.herokuapp.com');
 });
