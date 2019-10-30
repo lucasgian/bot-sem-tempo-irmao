@@ -4,7 +4,7 @@ const pingmydyno = require('pingmydyno');
 require('dotenv').config();
 
 const bot = new SlackBot({
-    token: 'xoxb-805418037462-804742825073-pYbinj8d9WP6qtAQneeykb4b',
+    token: 'xoxb-805418037462-804742825073-5ha7CfqEkaHYNFm3CJaYPKol',
     name: 'Sem tempo irmão'
 })
 
